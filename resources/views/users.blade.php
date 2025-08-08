@@ -16,7 +16,7 @@
 
     <div class="container">
         <div class="mt-5">
-            <h1 class="text-center">Ini adalah blog list</h1>
+            <h1 class="text-center">Users</h1>
 
             <div class="table-responsive mt-5">
                 <a href="{{ url('/blog/add') }}" class="btn btn-primary mb-3"> Add New</a>
@@ -25,19 +25,20 @@
                 @endif
 
 
-                <form method="GET">
+                {{-- <form method="GET">
                     <div class="input-group mb-3">
-                        <input type="text" name="title" class="form-control" placeholder="cari title"
-                            aria-label="title" aria-describedby="button-addon2" value="{{ $title }}">
+                        <input type="text" name="name" class="form-control" placeholder="cari title"
+                            aria-label="title" aria-describedby="button-addon2" value="{{ $name }}">
                         <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Cari</button>
                     </div>
-                </form>
+                </form> --}}
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th>No </th>
-                            <th>Title </th>
-                            <th>Description </th>
+                            <th>Name </th>
+                            <th>Email </th>
+                            <th>Phone </th>
                             <th>Action </th>
                         </tr>
                     </thead>
@@ -45,21 +46,23 @@
                         @if ($data->count() == 0)
                             <tr>
                                 <td class="collapse-table text-center" colspan="4">data
-                                    <strong>{{ $title }}</strong> tidak
+                                    <strong>{{ $name }}</strong> tidak
                                     ditemukan
                                 </td>
                             </tr>
                         @else
                             @foreach ($data as $item)
                                 <tr>
-                                    <td>{{ ($data->currentpage() - 1) * $data->perpage() + $loop->index + 1 }}</td>
-                                    <td>{{ $item->title }}</td>
-                                    <td>{{ $item->description }}</td>
+                                    {{-- <td>{{ ($data->currentpage() - 1) * $data->perpage() + $loop->index + 1 }}</td> --}}
+                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->phone->phone_number ?? '-' }}</td>
                                     <td>
-                                        <a href="/blog/view/{{ $item->id }}" class="btn btn-info">View</a>
-                                        <a href="/blog/edit/{{ $item->id }}" class="btn btn-success">Edit</a>
+                                        <a href="/users/view/{{ $item->id }}" class="btn btn-info">View</a>
+                                        <a href="/users/edit/{{ $item->id }}" class="btn btn-success">Edit</a>
 
-                                        <form action="/blog/delete/{{ $item->id }}" class="btn btn-danger"
+                                        <form action="/users/delete/{{ $item->id }}" class="btn btn-danger"
                                             method="post">
                                             @csrf
                                             @method('DELETE')
@@ -72,7 +75,7 @@
                         @endif
                     </tbody>
                 </table>
-                {{ $data->links() }}
+                {{-- {{ $data->links() }} --}}
             </div>
 
 
